@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import "tailwindcss";
+
+/* Scoutie Sans variable font (help-scout typeface) - welcome heading */
+@font-face {
+  font-family: "Scoutie Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/scoutie-sans:vf@5.3.1/latin-wght-normal.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ---- Reference purple palette (IMAGE 1) ----
+   Bright accent: #7C3AED  → violet-500 (used where necessary, e.g. charts)
+   Primary violet: #6D28D9 → violet-600
+   Mid/deep violet: #6924C6 → violet-700
+   Dark violet: #542383    → violet-800
+   Deep dark purple: #451271 → violet-900 / violet-950
+   Soft tints (violet-50..400) keep Tailwind defaults. */
+@theme {
+  --color-violet-500: #7c3aed;
+  --color-violet-600: #6d28d9;
+  --color-violet-700: #6924c6;
+  --color-violet-800: #542383;
+  --color-violet-900: #451271;
+  --color-violet-950: #2b0a4f;
+}
+
+/* Welcome heading font (used only on the dashboard welcome card) */
+.font-scoutie {
+  font-family: "Scoutie Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Smooth dark-to-purple gradient (reference) for surfaces that already use a
+   gradient accent. Single utility so the transition stays interpolated/smooth. */
+.grad-dark-purple {
+  background-image: linear-gradient(90deg, #111111 0%, #24102f 35%, #4b167a 70%, #6d28d9 100%);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes activity-pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.activity-pop-in {
+  animation: activity-pop-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- Aether ambient background (decorative only) ---- */
+body {
+  background-color: #f8f7fc;
+}
+
+.aether-shell {
+  position: relative;
+  isolation: isolate;
+  /* The decorative ::after drift animation translates/scale-fits beyond the
+     shell's box, expanding the document's scrollable area and producing a
+     horizontal scrollbar. clip contains that decorative layer without creating
+     a scroll container and without altering any layout. */
+  overflow-x: hidden;
+  overflow-x: clip;
+  background:
+    radial-gradient(900px 560px at 88% -6%, rgba(139, 92, 246, 0.10), transparent 62%),
+    radial-gradient(820px 520px at 4% 104%, rgba(99, 102, 241, 0.10), transparent 62%),
+    linear-gradient(150deg, #fefdff 0%, #f9f7fd 38%, #f4f1fb 72%, #f8f6fc 100%);
+}
+
+.aether-shell::before,
+.aether-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* faint abstract AI network pattern: tiny nodes + very thin lines */
+.aether-shell::before {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'520'%20height%3D'520'%20viewBox%3D'0%200%20520%20520'%3E%0A%3Cg%20stroke%3D'%238b5cf6'%20stroke-width%3D'1'%20stroke-opacity%3D'0.5'%20fill%3D'none'%3E%0A%3Cpath%20d%3D'M80%20120%20L200%2095%20L300%20150%20L235%20252%20L390%20305%20L305%20418'%2F%3E%0A%3Cpath%20d%3D'M120%20180%20L235%20252%20L150%20330'%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D'%238b5cf6'%3E%0A%3Ccircle%20cx%3D'80'%20cy%3D'120'%20r%3D'2.6'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'95'%20r%3D'2.6'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'150'%20r%3D'2.6'%2F%3E%0A%3Ccircle%20cx%3D'235'%20cy%3D'252'%20r%3D'3.4'%2F%3E%3Ccircle%20cx%3D'390'%20cy%3D'305'%20r%3D'2.6'%2F%3E%3Ccircle%20cx%3D'305'%20cy%3D'418'%20r%3D'2.6'%2F%3E%0A%3Ccircle%20cx%3D'120'%20cy%3D'180'%20r%3D'2.2'%2F%3E%3Ccircle%20cx%3D'150'%20cy%3D'330'%20r%3D'2.4'%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D'%238b5cf6'%20fill-opacity%3D'0.65'%3E%0A%3Ccircle%20cx%3D'420'%20cy%3D'120'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'452'%20cy%3D'262'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'92'%20cy%3D'360'%20r%3D'1.5'%2F%3E%0A%3Ccircle%20cx%3D'330'%20cy%3D'92'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'252'%20cy%3D'412'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'470'%20cy%3D'420'%20r%3D'1.5'%2F%3E%0A%3Ccircle%20cx%3D'182'%20cy%3D'60'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'62'%20cy%3D'278'%20r%3D'1.5'%2F%3E%3Ccircle%20cx%3D'360'%20cy%3D'470'%20r%3D'1.5'%2F%3E%0A%3Ccircle%20cx%3D'472'%20cy%3D'190'%20r%3D'1.5'%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  background-size: 520px 520px;
+  opacity: 0.05;
+}
+
+/* extremely soft purple/indigo radial glows + blurred blob wash, slow drift */
+.aether-shell::after {
+  background:
+    radial-gradient(560px 360px at 72% 44%, rgba(196, 181, 253, 0.22), transparent 66%),
+    radial-gradient(460px 300px at 20% 10%, rgba(221, 214, 254, 0.5), transparent 66%),
+    radial-gradient(700px 480px at 50% 32%, rgba(237, 233, 254, 0.45), transparent 70%),
+    radial-gradient(520px 340px at 28% 88%, rgba(167, 139, 250, 0.12), transparent 66%);
+  animation: aether-drift 76s ease-in-out infinite;
+}
+
+@keyframes aether-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(26px, -20px, 0) scale(1.035); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aether-shell::after {
+    animation: none;
+  }
+  .activity-pop-in {
+    animation: none;
+  }
+}
