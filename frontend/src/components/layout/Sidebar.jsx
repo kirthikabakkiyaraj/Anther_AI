@@ -7,7 +7,6 @@ import {
   Plus,
   BookOpen,
   Calendar,
-  Zap,
 } from "lucide-react";
 
 const navItems = [
@@ -26,8 +25,12 @@ export default function Sidebar() {
           to="/dashboard"
           className="flex items-center gap-3 mb-8 hover:opacity-80 transition cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-700 flex items-center justify-center shrink-0">
-            <Zap className="w-4 h-4 text-white" />
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
+            <img
+              src="/logo.png"
+              alt="Aether Platform"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <p className="text-sm font-bold text-gray-900 leading-tight">
